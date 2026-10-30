@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function role() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+    match /users/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false; // role assignment is backend/admin-only
+    }
+    match /complaints/{id} {
+      allow read: if signedIn() && (
+        resource.data.created_by == request.auth.uid ||
+        role() == 'admin' ||
+        (role() == 'department_officer' &&
+         resource.data.department == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.department)
+      );
+      allow write: if false; // writes go through verified FastAPI backend
+    }
+    match /notifications/{id} {
+      allow read: if signedIn() && resource.data.uid == request.auth.uid;
+      allow write: if false;
+    }
+  }
+}

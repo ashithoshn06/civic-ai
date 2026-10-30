@@ -1,0 +1,41 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+**/!.env.example
+serviceAccountKey.json
+service-account.json
+*serviceAccount*.json
+*service-account*.json
+secrets/
+credentials/
+
+# Dependencies
+node_modules/
+**/node_modules/
+.venv/
+venv/
+env/
+
+# Build output
+dist/
+build/
+coverage/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

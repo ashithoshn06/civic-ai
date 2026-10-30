@@ -1,0 +1,8 @@
+fastapi==0.115.12
+uvicorn[standard]==0.34.0
+firebase-admin==6.7.0
+python-dotenv==1.0.1
+python-multipart==0.0.20
+google-genai==1.11.0
+sentence-transformers==4.1.0
+numpy==2.2.4
